@@ -1,0 +1,8 @@
+﻿@model List<Student>
+
+<ul>
+    @foreach (var student in Model)
+    {
+        <li>@student.Name - @student.Course</li>
+    }
+</ul>

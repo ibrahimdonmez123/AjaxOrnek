@@ -1,0 +1,33 @@
+﻿@model List<Student>
+
+<div id="studentList">
+    @await Html.PartialAsync("StudentListPartial", Model)
+</div>
+
+<form id="addStudentForm">
+    <label>Name:</label>
+    <input type="text" name="Name" required />
+    <label>Course:</label>
+    <input type="text" name="Course" required />
+    <button type="button" onclick="addStudent()">Add Student</button>
+</form>
+
+@section scripts {
+    <script>
+        function addStudent() {
+            var form = $('#addStudentForm');
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddStudent", "Home")',
+                data: form.serialize(),
+                success: function (result) {
+                    $('#studentList').html(result);
+                    form[0].reset();
+                },
+                error: function () {
+                    alert('Error adding student.');
+                }
+            });
+        }
+    </script>
+}
